@@ -1,0 +1,304 @@
+html body{
+	background-color: #01213c21;
+	border:1px solid transparent;
+	margin:0;
+	padding:0;
+	height:100%;
+	background-size:100%;
+	background-position:center;
+	text-align:center;
+	font-family: "Times New Roman", Times, serif;
+}
+
+
+.navbar{
+	padding: 0;
+	background:#01213c;
+	text-align:center;
+	width: 100%;
+	height:60px;
+	position: fixed;
+	z-index: 10;
+	box-shadow:0 2px 0px 0px #9da0a4;
+	
+	
+}
+.wrap img{
+	display:inline-flex;
+	font-weight: bold;
+	color:#fff;
+	float:left;
+	margin: 30px 10px 5px 45px;
+	border-bottom:solid 1px #60666b;
+}
+
+
+.wrap{
+	z-index: 100;
+	position: fixed;
+	width:195px;
+	height: 100%;
+	background:#01213c;
+	/* background:#404040 ; */
+	padding: 0px;
+	font-size:15px;
+	box-shadow:0 10px 5px 0 #60666b;
+
+}
+
+
+.menu{
+	margin: 160px 2px 0px -25px;
+}
+.wrap ul li{
+	text-align: left;
+	margin-top: 0;
+	padding: 5px 0;
+	list-style: none;
+	overflow:hidden;
+	cursor: pointer;
+	display:block;
+	margin-bottom: 10px;
+	color: #cfd7b8;	
+}
+.wrap ul li a{
+	color: #bdb8d7;
+	display: block;
+	text-decoration: none;
+
+}
+
+.wrap ul li:hover a{
+	color: rgb(241, 237, 230);	
+}
+
+.wrap ul ul li:hover{
+	background: #01213c;	
+}
+.wrap ul ul li:hover a{
+	color: #fff;
+}
+.wrap ul ul {
+	margin-right: 5px;
+	margin-bottom: 30px;
+	margin-top: 10px;
+}
+
+.wrap ul ul li{
+	margin-left:-30px ;
+	margin-top: 0;
+	margin-bottom: 10px;
+	padding: 3px 10px 3px 0px;
+	border-bottom: 1px solid #bdb8d7;
+	color: #fff;
+}
+/* .wrap ul li:focus ul{
+	display:block;
+	cursor: pointer;
+	
+} */
+.logout-btn{
+    right: 20px;
+    position: absolute;
+    text-decoration: none;
+    color: #d8d8d8;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-origin: border-box;
+	background-clip: content-box,border-box;
+	font-size: 20px;
+	margin-right: 5px;
+}
+.logout-btn span{
+    display: block;
+	padding: 8px 20px;
+	cursor: pointer;
+}
+
+.logout-btn span a:link{
+    text-decoration: none;
+    color: #d8d8d8;
+}
+.logout-btn span a:visited{
+    text-decoration: none;
+    color: #d8d8d8;
+}
+.navbar input[type="submit"]
+{
+   	border: none;
+	outline: none;
+    height: 35px;
+	width : 100px;
+	font-weight: 500;
+    background: transparent;
+    color: rgb(193, 187, 187);
+    font-size: 20px;
+	margin-left: auto;
+    margin-right: 30px;
+	display:block;
+	cursor: pointer;
+	position: relative;
+	margin-bottom: 5px;
+}
+.wrap input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: transparent;
+    color: #60666b;
+}
+
+.content{
+	margin-top: 100px;
+	margin-left: 200px;
+	margin-right:20px;
+	margin-bottom: 0;
+	height: 100%;
+	z-index: 0;
+}
+
+.card {
+  box-shadow: 0 8px 5px 0 rgb(172, 172, 172); 
+  width: 95%;
+  height: auto;
+  background-color:#fdfcfc;
+  margin: auto;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 15px;
+}
+
+
+.container {
+  padding: 5px 16px 5px 5px;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+ 
+  background-color: white;
+  margin-left:100px;
+  
+}
+
+.container:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+a{
+	text-decoration:none;
+}
+
+.content ul li{
+	text-align: left;
+	list-style-type: none;
+	padding : 10px;
+	padding-left: 30px;
+}
+
+.c-card {
+	box-shadow: 0 8px 5px 0 rgb(155, 148, 148); 
+	width: 50%;
+	height:auto;
+	background-color:#b1a7a71a;
+	margin: auto;
+	padding: 10px;
+	overflow: auto;
+	border-radius: 10px;
+}
+
+
+  .drop{
+	background-color: #01213c;
+	border: none;
+	color: #bdb8d7;
+	text-align: left;
+	text-decoration: none;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	outline:none;
+}
+
+.drop:hover{
+	background-color: #01213c;
+	color: rgb(241, 237, 230);
+}
+
+.drop:focus{
+	border: 1px solid #554c54;
+	outline:none;
+}
+
+.fa-angle-down{
+	margin-left: 3px;
+}
+
+ul{
+	list-style: none;
+}
+
+.radio{
+	margin-left: 20px;
+	padding-left: 10px;
+}
+
+label{
+	margin-left: 20px;
+	font-size: 20px;
+	
+}
+form{
+	padding: 0 20px;
+}
+
+
+.radio {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 17px;
+	user-select: none;
+  }
+  
+  .radio input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+  }
+  
+  .checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 30%;
+  }
+  
+  .radio:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  .radio input:checked ~ .checkmark {
+	background-color: #01213c;
+  }
+  
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  .container input:checked ~ .checkmark:after {
+	display: block;
+  }
+  
+  .container .checkmark:after {
+	   top: 7px;
+	  left: 7.5px;
+	  width: 10px;
+	  height: 10px;
+	  border-radius: 30%;
+	  background: white;
+  }
