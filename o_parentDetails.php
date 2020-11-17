@@ -4,12 +4,17 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }elseif($_SESSION['userType'] == 'officer'){
-      
+    }
+    else if($_SESSION['userType'] != 'officer'){
+        header('Location: ../common/error.html');
+    }
+    else{      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (in_array("d1", $dutyID)) {
+      if (!in_array("d1", $dutyID)) {
+         header('Location: o_dashboard.php');
+        }
 	?>
 
 <!DOCTYPE html>
@@ -113,3 +118,5 @@
 </body>
 
 </html>
+
+<?php } ?>
