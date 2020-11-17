@@ -1,7 +1,25 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
+        $error = "Please Login!";
+        header('Location: ../common/loginFile.php?error='.$error);
+    }
+    else if($_SESSION['userType'] != 'officer'){
+        header('Location: ../common/error.html');
+    }
+    else{      
+      $dutyID = array();
+      $dutyID = $_SESSION['dutyID'];
+
+      if (!in_array("d2", $dutyID)) {
+         header('Location: o_dashboard.php');
+        }
+    ?>
+    
 <!DOCTYPE html>
 <head>
     <head>
-
         <?php
         include_once '../../config/conn.php';
         ?>
@@ -15,53 +33,63 @@
         <script src="../js/pop.js"></script>
         <script src="../js/nav.js"></script>
     </head>
-    <body>
-        <div id="nav"></div>	
-            <div class="content">
-            
-            <h1>O/L Examination Results</h1>
-            <form class="search" action="register_stu.html">
+
+<body>
+    <div id="officeNav"></div>
+    <div class="content">
+
+        <h1>O/L Examination Results</h1>
+        <form class="search">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Search</button>
-            </form>
-            
-            
-            <br>
-            <br>
-            <br>
-            
+        </form>
 
-			
-			  <div class="card">
-                <form>
-					<button type="submit" formaction="o_addOl.php">Add Year</button>
-				</form>
-				<br>
-				<br>
-				
-				<hr>
-				<table>
-					<tr>
-                        <th>Exam ID</th>
-						<th>Year</th>
-                        <th>Name of the Examination</th>
-                        <th>Edit Details</th>
-                        <th>View Details</th>
-						
-						
-					</tr>
-					<tr>
-                        <td>OL2018</td>
-						<td>2018</td>
-                        <td>G.C.E O/L Examination - 2018</td>
-                        <td><form><button class="btn editbtn" type="submit" formaction="o_olCsv.php">Add Results</button></form></td>
-                        <td><form><button class="btn viewbtn" type="submit" formaction="o_ol.php">View Results</button></form></td>
-						
-					</tr>
-                </table>
-				</div>
-				
-		</div>
-		
-    </body>
+
+        <br>
+        <br>
+        <br>
+
+
+
+        <div class="card">
+            <form>
+                <button type="submit" formaction="o_addOl.php">Add Year</button>
+            </form>
+            <br>
+            <br>
+
+            <hr>
+            <table>
+                <tr>
+                    <th>Exam ID</th>
+                    <th>Year</th>
+                    <th>Name of the Examination</th>
+                    <th>Edit Details</th>
+                    <th>View Details</th>
+
+
+                </tr>
+                <tr>
+                    <td>OL2018</td>
+                    <td>2018</td>
+                    <td>G.C.E O/L Examination - 2018</td>
+                    <td>
+                        <form><button class="btn editbtn" type="submit" formaction="o_olCsv.php">Add Results</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form><button class="btn viewbtn" type="submit" formaction="o_ol.php">View Results</button>
+                        </form>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
 </html>
+
+<?php } ?>
