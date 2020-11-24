@@ -87,6 +87,7 @@
                 <hr>
 			   
 				<button type="submit" class="registerbtn" name="regbtn">Save</button>
+				<a href="o_teachersList.php" class="cancel-btn">Cancel</a>
 
             </form>
 			<div id="msg"></div>
