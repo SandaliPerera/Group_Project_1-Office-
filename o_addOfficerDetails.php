@@ -1,3 +1,21 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
+        $error = "Please Login!";
+        header('Location: ../common/loginFile.php?error='.$error);
+    }
+    else if($_SESSION['userType'] != 'officer'){
+        header('Location: ../common/error.html');
+    }
+    else{      
+      $dutyID = array();
+      $dutyID = $_SESSION['dutyID'];
+
+      if (!in_array("d1", $dutyID)) {
+         header('Location: o_dashboard.php');
+        }
+	?>
 
 
 <!DOCTYPE html>
@@ -15,12 +33,12 @@
 	<link type="text/css" rel="stylesheet" href="../css/register.css">
 </head>
 <body>
-    <div id="nav"></div>
+    <div id="officeNav"></div>
     
     
     <div class="content">
         <div class="container">
-            <form action="../../src/o_addOfficerDetails.php" method="POST" onsubmit="return validateRegistration(nic.value,contactNo.value,email.value,officerid.value)">
+            <form action="../../src/addOfficerDetails.php" method="POST" onsubmit="return validateRegistration()">
                 <h1>Add Officer Details</h1>
                 <hr>
 
@@ -37,7 +55,7 @@
 					<input type="text" placeholder="Enter NIC" id="nic" name="nic" onblur="NIC(nic.value)"  required>
 
 					<label for="dob"><b>Date of Birth</b></label>
-					<input type="date" placeholder="Enter Date of Birth" name="dob" onclick="validatedate(document.form1.text1)" required>
+					<input type="date" placeholder="Enter Date of Birth" name="dob" required>
 
 					<label><b>Gender:</b></label>
 					<label> <input type="radio" name="gender" value="male" required> Male</label>
@@ -61,22 +79,22 @@
                     <br>
                     <br>
                     <br>
-					<div class="checkbox-group required">
-                    <label> <input type="checkbox" name="checkbox[1]" value="d1" >User Management</label>
+					<div class="checkbox-group"  required>
+                    <label> <input type="checkbox" name="checkbox[1]" value="d1" id="d1" >User Management</label>
                     <br>
                     <br>
-					<label> <input type="checkbox" name="checkbox[2]" value="d2" >Exam Result Management</label>
+					<label> <input type="checkbox" name="checkbox[2]" value="d2" id="d2"  >Exam Result Management</label>
                     <br>
                     <br>
-					<label> <input type="checkbox" name="checkbox[3]" value="d3" >Document Management</label>
+					<label> <input type="checkbox" name="checkbox[3]" value="d3"  id="d3" >Document Management</label>
                     <br>
                     <br>
-					<label> <input type="checkbox" name="checkbox[4]" value="d4" >Request Management</label>
+					<label> <input type="checkbox" name="checkbox[4]" value="d4" id="d4"  >Request Management</label>
                     <br>
                     <br>
-					<label> <input type="checkbox" name="checkbox[5]" value="d5" >NewsFeed Management</label>
+					<label> <input type="checkbox" name="checkbox[5]" value="d5"  id="d5" >NewsFeed Management</label>
                     <br><br>
-					<label> <input type="checkbox" name="checkbox[6]" value="d6" >Class Management</label>
+					<label> <input type="checkbox" name="checkbox[6]" value="d6" id="d6"  >Class Management</label>
                     <br>
 					</div>
 
@@ -94,3 +112,5 @@
 		
 	</body>
 </html>
+
+	  <?php } ?>
