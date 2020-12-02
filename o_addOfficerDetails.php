@@ -3,19 +3,19 @@
 
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
-        header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+		header('Location: ../common/loginFile.php?error='.$error);
+		
+    } else if ($_SESSION['userType'] != 'officer') {
+		header('Location: ../common/error.html');
+	} else {
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
       if (!in_array("d1", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
-	?>
+		header('Location: o_dashboard.php');
+	  }else{
+?>
 
 
 <!DOCTYPE html>
@@ -46,16 +46,16 @@
 					<input type="text" placeholder="Enter ID" name="officerid" value = "<?php if (isset ($_GET['userID'])){echo $_GET['userID'];}?>" required>
 					
 					<label for="fname"><b>First Name</b></label>
-					<input type="text" placeholder="Enter Name" name="fname" required>
+					<input type="text" placeholder="Enter Name" name="fname" id="fname" onblur="checkFname(fname.value)">
 
 					<label for="lname"><b>Last Name</b></label>
-					<input type="text" placeholder="Enter Name" name="lname" required>
+					<input type="text" placeholder="Enter Name" name="lname" id="lname" onblur="checkLname(lname.value)" >
 
 					<label for="nic"><b>NIC</b></label>
-					<input type="text" placeholder="Enter NIC" id="nic" name="nic" onblur="NIC(nic.value)"  required>
+					<input type="text" placeholder="Enter NIC" id="nic" name="nic" onblur="NIC(nic.value)"  >
 
 					<label for="dob"><b>Date of Birth</b></label>
-					<input type="date" placeholder="Enter Date of Birth" name="dob" required>
+					<input type="date" placeholder="Enter Date of Birth" name="dob" id="date"  onblur="checkDate(date.value)" >
 
 					<label><b>Gender:</b></label>
 					<label> <input type="radio" name="gender" value="male" required> Male</label>
@@ -67,13 +67,14 @@
 					<br>
 										
 					<label for="address"><b>Residential Addresss</b></label>
-					<input type="text" placeholder="Enter current address" name="address" required>
+					<input type="text" placeholder="Enter current address" name="address" id="street" onblur="checkStreet(street.value)">
+					
 
 					<label for="contactNo"><b>Contact Number</b></label>
 					<input type="text" placeholder="Enter Contact Number" name="contactNo" id="contactNo"  onblur="contact(contactNo.value)">
 
 					<label for="email"><b>Email</b></label>
-					<input type="text" placeholder="Enter Email" name="email" id="email" onblur="validateEmail(email.value)" required>
+					<input type="text" placeholder="Enter Email" name="email" id="email" onblur="validateEmail(email.value)">
 
                     <label><b>User Duties :</b></label>
                     <br>
@@ -100,11 +101,16 @@
 
 					
 					<hr>
-				
-					<button type="submit" class="registerbtn" name="regbtn">Save</button>
+					<div id="msg"></div>
+					<div>
+                        <button type="submit" class="registerbtn" name="regbtn">Save</button>
+                        
+                        <a href="o_officersList.php" class="cancel-btn">Cancel</a>
+
+                    </div>
 
             	</form>
-				<div id="msg"></div>
+				
         	</div>
 
     	</div>
@@ -113,4 +119,4 @@
 	</body>
 </html>
 
-	  <?php } ?>
+	  <?php }} ?>
