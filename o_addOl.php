@@ -1,69 +1,27 @@
 <?php
-    session_start();
+    include_once '../config/conn.php';
 
-    if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
-        $error = "Please Login!";
-        header('Location: ../common/loginFile.php?error='.$error);
+    if ($conn->connect_error){
+        die("Connection failed : " . $conn->connect_error);
     }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
-      $dutyID = array();
-      $dutyID = $_SESSION['dutyID'];
+    echo "Connected Successfully";
 
-      if (!in_array("d2", $dutyID)) {
-         header('Location: o_dashboard.php');
+    if(isset($_POST['savebtn'])){
+
+        $examID = $_POST['examID'];
+        $examYear = $_POST['olExamYear'];
+        $examName = $_POST['examName'];
+
+        $sql = "INSERT INTO addolexam (examID, examYear, examName) VALUES ('$examID','$examYear','$examName');";
+
+        if($conn->query($sql)===TRUE){
+            echo '<script language = "javascript">';
+            echo 'alert("Details Added");';
+            echo '</script>';
+            echo "dd";
+        }else{
+            echo "Error : " . $sql . "<br>" . $conn->error;
         }
-	?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Add O/L Results</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="../css/pop.css">
-    <script src="../js/jquery-1.9.1.min.js"></script>
-    <script src="../js/pop.js"></script>
-    <script src="../js/nav.js"></script>
-    <link type="text/css" rel="stylesheet" href="../css/register.css">
-    <link type="text/css" rel="stylesheet" href="../css/main.css">
-    
-</head>
-
-<body>
-
-    <div id="officeNav"></div>
-
-
-    <div class="content">
-        <div class="regcontainer">
-            <form action="../../src/o_addOl.php" method="POST">
-                <h1>Add G.C.E. O/L Examination Results</h1>
-                <hr>
-
-                <label for="examID"><b>Exam ID</b></label>
-                <input type="text" placeholder="Enter Exam ID" name="examID" required>
-
-                <label for="olExamYear"><b>Enter Exam Year</b></label>
-                <input type="text" placeholder="Enter Exam Year" name="olExamYear" required>
-
-                <label for="examName"><b>Exam Name</b></label>
-                <input type="text" placeholder="Enter Exam Name" name="examName" required>
-
-                <button type="submit" class="registerbtn" name="savebtn">Save</button>
-                <a href="o_viewOl.php" class="cancel-btn">Cancel</a>
-
-            </form>
-
-        </div>
-
-    </div>
-
-
-</body>
-
-</html>
-
-<?php } ?>
+    }
+    $conn->close();
+?>
