@@ -4,19 +4,14 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d2", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
-    ?>
-    
+      if (in_array("d2", $dutyID)) {
+	?>
+
 <!DOCTYPE html>
 <html>
 
@@ -40,9 +35,9 @@ include_once '../../config/conn.php';
     <div id="officeNav"></div>
 
     <div class="content">
-
-        <h1>G.C.E A/L Examination Results</h1>
-        <form class="search" >
+        <br>
+        <h1 style="color: #6a7480;">G.C.E A/L Examination Results</h1>
+        <form class="search">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Search</button>
         </form>
@@ -53,7 +48,7 @@ include_once '../../config/conn.php';
 
         <div class="card">
             <form>
-                <button type="submit" formaction="o_addAl.php">Add Year</button>
+                <button type="submit" formaction="o_addAl.php">Add Exam</button>
             </form>
             <br>
             <br>
@@ -102,4 +97,4 @@ include_once '../../config/conn.php';
 
 </html>
 
-<?php } ?>
+<?php }} ?>
