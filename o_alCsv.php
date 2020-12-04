@@ -35,7 +35,7 @@
 
     </div>
     <div class="content">
-        <div class="regcontainer">
+        <div class="container">
             <form action="../php/register.php" method="POST">
                 <h1>Add G.C.E. A/L Examination Results</h1>
                 <hr>
