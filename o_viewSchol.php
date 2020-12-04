@@ -32,8 +32,8 @@ include_once '../../config/conn.php';
     <div id="officeNav"></div>
 
     <div class="content">
-
-        <h1>Grade 5 Scholarship Examination Results</h1>
+        <br>
+        <h1 style="color: #6a7480;">Grade 5 Scholarship Examination Results</h1>
         <form class="search" action="register_stu.html">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Search</button>
@@ -45,11 +45,14 @@ include_once '../../config/conn.php';
 
         <div class="card">
             <form>
-                <button class="editbtn left" type="submit" formaction="o_addSchol.php">Add Year</button>
+                <button class="editbtn left" type="submit" formaction="o_addSchol.php">Add Exam</button>
             </form>
             <br>
             <br>
-
+            <?php
+                    $sql = "SELECT * FROM addScholExam" ;
+                    $result = mysqli_query($conn,$sql);
+                    ?>
             <hr>
             <table>
                 <tr>
@@ -62,9 +65,14 @@ include_once '../../config/conn.php';
 
                 </tr>
                 <tr>
-                    <td>G5S2018</td>
-                    <td>2018</td>
-                    <td>Grade 5 Scholarship Examination - 2018</td>
+                <?php
+                    
+                    while($row=mysqli_fetch_assoc($result)){
+                    ?>
+                <tr>
+                    <td><?php echo $row['examID']?></td>
+                    <td><?php echo $row['examYear']?></td>
+                    <td><?php echo $row['examName']?></td>
                     <td>
                         <form><button class="btn editbtn" type="submit" formaction="o_scholCsv.php">Add Results</button>
                         </form>
@@ -75,6 +83,9 @@ include_once '../../config/conn.php';
                     </td>
 
                 </tr>
+                <?php
+                    }
+                    ?>
             </table>
         </div>
 
@@ -83,3 +94,5 @@ include_once '../../config/conn.php';
 </body>
 
 </html>
+
+<?php }} ?>
