@@ -4,17 +4,12 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d6", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
+      if (in_array("d6", $dutyID)) {
 	?>
 
 <!DOCTYPE html>
@@ -42,7 +37,8 @@ include_once '../../config/conn.php';
     <div id="officeNav"></div>
 
     <div class="content">
-        <h1>Class 1A</h1>
+        <br>
+        <h1 style="color:#6a7480;">Class 1A</h1>
 
 
         <div class="l-part">
@@ -88,4 +84,4 @@ include_once '../../config/conn.php';
 
 </html>
 
-<?php } ?>
+<?php }} ?>
