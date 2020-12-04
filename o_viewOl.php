@@ -4,21 +4,18 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d2", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
-    ?>
-    
+      if (in_array("d2", $dutyID)) {
+	?>
+
 <!DOCTYPE html>
+
 <head>
+
     <head>
         <?php
         include_once '../../config/conn.php';
@@ -38,8 +35,8 @@
     <div id="officeNav"></div>
     <div class="content">
 
-        <h1>O/L Examination Results</h1>
-        <form class="search">
+        <h1 style="color: #6a7480;">O/L Examination Results</h1>
+        <form class="search" action="register_stu.html">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Search</button>
         </form>
@@ -53,11 +50,14 @@
 
         <div class="card">
             <form>
-                <button type="submit" formaction="o_addOl.php">Add Year</button>
+                <button type="submit" formaction="o_addOl.php">Add Exam</button>
             </form>
             <br>
             <br>
-
+            <?php
+                    $sql = "SELECT * FROM addOlExam" ;
+                    $result = mysqli_query($conn,$sql);
+                    ?>
             <hr>
             <table>
                 <tr>
@@ -69,10 +69,14 @@
 
 
                 </tr>
+                <?php
+                    
+                    while($row=mysqli_fetch_assoc($result)){
+                    ?>
                 <tr>
-                    <td>OL2018</td>
-                    <td>2018</td>
-                    <td>G.C.E O/L Examination - 2018</td>
+                    <td><?php echo $row['examID']?></td>
+                    <td><?php echo $row['examYear']?></td>
+                    <td><?php echo $row['examName']?></td>
                     <td>
                         <form><button class="btn editbtn" type="submit" formaction="o_olCsv.php">Add Results</button>
                         </form>
@@ -83,6 +87,9 @@
                     </td>
 
                 </tr>
+                <?php
+                    }
+                    ?>
             </table>
         </div>
 
@@ -92,4 +99,4 @@
 
 </html>
 
-<?php } ?>
+<?php }} ?>
