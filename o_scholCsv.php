@@ -4,18 +4,13 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d2", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
-    ?>
+      if (in_array("d2", $dutyID)) {
+	?>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +18,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Scholarship Results</title>
-    <link type="text/css" rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/register.css " type="text/css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
     <script src="../js/jquery-1.9.1.min.js"></script>
     <script src="../js/pop.js"></script>
     <script src="../js/nav.js"></script>
@@ -34,7 +29,7 @@
     <div id="officeNav"></div>
 
     <div class="content">
-        <div class="regcontainer">
+        <div class="container" style="margin-left:250px;">
             <form action="../php/register.php" method="POST">
                 <h1>Add Grade 5 Scholarship Exam Results</h1>
                 <hr>
@@ -54,7 +49,9 @@
                 <button type="submit" class="registerbtn">Save</button>
                 <a href="o_viewSchol.php" class="cancel-btn">Cancel</a>
 
-            </form>
+
+
+                </form>
 
         </div>
 
@@ -65,4 +62,4 @@
 
 </html>
 
-<?php } ?>
+<?php }} ?>
