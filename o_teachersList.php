@@ -1,131 +1,162 @@
-<html>
-    <head>
+<?php
+    session_start();
 
-    <?php
-include_once '../../php/includes/conn.php'
-?>
-        <title>Dashboard</title>
-        <link rel="stylesheet" href="../../css/main.css" type="text/css">
-        <link rel="stylesheet" href="../../css/dashboard.css" type="text/css">
-        <link rel="stylesheet" href="../../css/register.css" type="text/css">
-        <link rel="stylesheet" href="../../css/view.css " type="text/css">
-        <link type="text/css" rel="stylesheet" href="../../css/users.css">
-        <link type="text/css" rel="stylesheet" href="../../css/tabs.css">
-    </head>
-    <body>
-        <div class="navbar">
-            <ul>
-                <li>
-                    <form action="login.html" method="POST" name="logout">
-                        <input type="submit" value="Logout" id="submit" name="submit">
-                    </form>
-                </li>
-            </ul>
-        </div>
-
-        <div class="wrap">
-           <ul>
-            <li><a href="">Dashboard</a></li>
-
-            <li><a href="">Manage User Information </a>
-            
-                <ul>
-                    <li><a href="studentsList.html">Student</a></li>
-                    <li><a href="teachersList.html">Teacher</a></li>
-                    <li><a href="ofstaffList.html">Office Staff</a></li>
-                </ul>
-            </li>
-                
-            <li><a href="">Add Exam results</a>
-                <ul>
-                    <li><a href="viewSchol.html">Grade 5 Scholarship</a></li>
-                    <li><a href="viewOl.html">G.C.E. O/L</a></li>
-                    <li><a href="viewAl.html">G.C.E. A/L</a></li>
-                </ul>
-            </li>
-
-            <li><a href="">Requests </a>
-                <ul>
-                    <li><a href="">Certificates</a>
-                        
-                        <ul>
-                            <li><a href="">Character Certificate</a></li>
-                            <li><a href="">Leaving Certificate</a></li>
-                        </ul>
-                        
-                    </li>
-                    <li><a href="">Edit Requests</a></li>
-                </ul>
-            </li>
-            <li><a href="">Edit Newsfeed</a></li>
-          
-        
-        </div>
-
-        <div class="content">
-            
-
-                <?php
-                //echo "test";
-               
-                
-$sql = "SELECT COUNT(isActivated) FROM user where isActivated=0"; 
-$sql_student = "SELECT COUNT(isActivated) FROM user where isActivated=0 and userType='student' ";
-$sql_teacher = "SELECT COUNT(isActivated) FROM user where isActivated=0 and userType='teacher' ";
-$sql_parent = "SELECT COUNT(isActivated) FROM user where isActivated=0 and userType='parent' ";
-
-$result = $conn->query($sql);
-$result_student = $conn->query($sql_student);
-$result_teacher = $conn->query($sql_teacher);
-$result_parent = $conn->query($sql_parent);
-
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "All Users Count: " . $row["COUNT(isActivated)"]. "<br>";
-	
-  }
-  while($row = $result_teacher->fetch_assoc()) {
-    echo "Teacher Count: " . $row["COUNT(isActivated)"]. "<br>";
-    
-  }
-
-}else {
-    echo "0 results";
-  }
-
-  $sql1 = "SELECT * FROM user WHERE isActivated = 0  AND userType='teacher'";
-  $res1= mysqli_query($conn,$sql1);
-
-  ?>
-  
-
-
-  <br>
-  <table>
-  <tr>
-      <th>User ID</th>
-      <th>UserName</th>
-      <th>User Type</th>
-      <th>Edit Details</th>
+    if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
+        $error = "Please Login!";
+        header('Location: ../common/loginFile.php?error='.$error);
+    }elseif($_SESSION['userType'] == 'officer'){
       
-  </tr>
-  <?php
-while($row=mysqli_fetch_assoc($res1)){
-?>
-  <tr>
-      <td><?php echo $row['userID'] ?></td>
-      <td><?php echo $row['username'] ?></td>
-      <td><?php echo $row['userType'] ?></td>
-      <td><button type="submit" align="center">Edit</button></td>
-  </tr>
-  <?php
-}
-?>
-  </table>
+      $dutyID = array();
+      $dutyID = $_SESSION['dutyID'];
 
-                
-     
+      if (in_array("d1", $dutyID)) {
+	?>
+
+<!DOCTYPE html>
+
+<head>
+    <?php
+      include_once '../../config/conn.php';
+      ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Teachers List</title>
+    <link rel="stylesheet" href="../css/view.css " type="text/css">
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
+    <link type="text/css" rel="stylesheet" href="../css/tabs.css">
+    <link type="text/css" rel="stylesheet" href="../css/users.css">
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/pop.js"></script>
+    <script src="../js/nav.js"></script>
+</head>
+
+<body>
+    <div id="officeNav"></div>
+    <div class="content">
+
+        <h1 style="margin-top:20px;">Teachers List</h1>
+        <?php
+            //echo "test";
+            
+            
+            $sql = "SELECT COUNT(isActivated) FROM user where userType='teacher' AND isActivated=0"; 
+            $sql3 = "SELECT COUNT(isActivated) FROM user where userType='teacher' AND isActivated=1";
+            $sql1 = "SELECT * FROM user where isActivated=0 and userType='teacher' ";
+            $sql2 = "SELECT * FROM user where isActivated=1 and userType='teacher' ";
+            
+            $result = $conn->query($sql);
+            $result3 = $conn->query($sql3);
+            $result1 = $conn->query($sql1);
+            $result2 = $conn->query($sql2);
+          
+            ?>
+        <div class="btn-box">
+            <button id="button2" onclick="activated()">Added Users</button>
+            <button id="button1" onclick="notActivated()">Activated Users</button>
         </div>
-    </body>
+
+        <br>
+        <br>
+        <div id="page1" class="page">
+            <div class="card">
+                <div class="count">
+                    <?php
+                     while($row = $result->fetch_assoc()) {
+                     echo "Teacher Count: " . $row["COUNT(isActivated)"]. "<br>";
+                     }?>
+                </div>
+                <hr>
+                <table>
+                    <tr>
+                        <th>User ID</th>
+                        <th>UserName</th>
+                        <th>User Type</th>
+                        <th>Add Details</th>
+                    </tr>
+                    <?php
+                        while($row=mysqli_fetch_assoc($result1)){
+                        ?>
+                    <tr>
+                        <td><?php echo $row['userID'] ?></td>
+                        <td><?php echo $row['username'] ?></td>
+                        <td><?php echo $row['userType'] ?></td>
+                        <?php echo "<td><a class='btn editbtn' href = o_addTeacherDetails.php?userID=".$row['userID']." > Add </a> </td>"?>
+                    </tr>
+                    <?php
+                        }
+                        ?>
+                </table>
+            </div>
+        </div>
+        <div id="page2" class="page">
+            <div class="card">
+                <div class="count">
+                    <?php
+                     while($row = $result3->fetch_assoc()) {
+                     echo "Activated Teacher Count: " . $row["COUNT(isActivated)"]. "<br>";
+                     }?>
+                </div>
+                <hr>
+                <table>
+                    <tr>
+                        <th>User ID</th>
+                        <th>UserName</th>
+                        <th>User Type</th>
+                        <th>Edit Details</th>
+                    </tr>
+                    <?php
+                        while($row=mysqli_fetch_assoc($result2)){
+                        ?>
+                    <tr>
+                        <td><?php echo $row['userID'] ?></td>
+                        <td><?php echo $row['username'] ?></td>
+                        <td><?php echo $row['userType'] ?></td>
+                        <?php echo "<td><a class='btn editbtn' href = Tcr_profile.php?userID=".$row['userID']." > update </a> </td>"?>
+                    </tr>
+                    <?php
+                        }
+                        ?>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    var page1 = document.getElementById("page1");
+    var page2 = document.getElementById("page2");
+    var button1 = document.getElementById("button1");
+    var button2 = document.getElementById("button2");
+
+    let url = window.location.href;
+    if (url == window.location.href) {
+        page1.style.display = "block";
+        page2.style.display = "none";
+        button1.style.color = "#008080";
+        button2.style.color = "#000";
+
+    } else if (url == "http://localhost/CL-GEN/public/office/o_teachersList.php?loggedin") {
+        page1.style.display = "block";
+        page2.style.display = "none";
+        button1.style.color = "#008080";
+        button2.style.color = "#000";
+    }
+
+    function activated() {
+        page1.style.display = "block";
+        page2.style.display = "none";
+        button1.style.color = "#008080";
+        button2.style.color = "#000";
+
+    }
+
+    function notActivated() {
+        page1.style.display = "none";
+        page2.style.display = "block";
+        button1.style.color = "#000";
+        button2.style.color = "#008080";
+    }
+    </script>
+</body>
+
 </html>
+
+<?php }} ?>
