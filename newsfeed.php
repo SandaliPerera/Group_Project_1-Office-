@@ -1,20 +1,15 @@
-    <?php
+<?php
     session_start();
 
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d5", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
+      if (in_array("d5", $dutyID)) {
 	?>
 
 <!DOCTYPE html>
@@ -85,4 +80,4 @@ require_once '../../config/conn.php';
 </body>
 </html>
 
-<?php } ?>
+<?php }} ?>
