@@ -36,26 +36,21 @@
     <div id="officeNav"></div>
 
     <div class="content">
+        <br>
         <div class="container">
             <form action="../../src/o_addAl.php" method="POST">
                 <h1>Add G.C.E. A/L Examination Results</h1>
                 <hr>
 
-                <label for="alExamID"><b>Exam ID</b></label>
-                <input type="text" placeholder="Enter Exam ID" name="alExamID" required>
-
-                <label for="alExamYear"><b>Enter Exam Year</b></label>
+               <label for="alExamYear"><b>Enter Exam Year</b></label>
                 <input type="text" placeholder="Enter Exam Year" name="alExamYear" required>
 
                 <label for="alExamName"><b>Exam Name</b></label>
                 <input type="text" placeholder="Enter Exam Name" name="alExamName" required>
 
 
-                <br>
-
-                <hr>
-
                 <button type="submit" class="registerbtn" name="savebtn">Save</button>
+                <a href="o_viewAl.php" class="cancel-btn">Cancel</a>
 
             </form>
 
