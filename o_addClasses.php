@@ -4,24 +4,19 @@
     if(!isset($_SESSION['userType']) && !isset($_SESSION['userID'])){
         $error = "Please Login!";
         header('Location: ../common/loginFile.php?error='.$error);
-    }
-    else if($_SESSION['userType'] != 'officer'){
-        header('Location: ../common/error.html');
-    }
-    else{      
+    }elseif($_SESSION['userType'] == 'officer'){
+      
       $dutyID = array();
       $dutyID = $_SESSION['dutyID'];
 
-      if (!in_array("d6", $dutyID)) {
-         header('Location: o_dashboard.php');
-        }
-	?>
+      if (in_array("d6", $dutyID)) {
+    ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Add O/L Results</title>
+    <title>Add Classes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="../css/pop.css">
     <script src="../js/jquery-1.9.1.min.js"></script>
@@ -37,6 +32,7 @@
 
 
     <div class="content">
+        <br>
         <div class="container">
             <form action="../../src/o_addOl.php" method="POST">
                 <h1>Add Classes</h1>
@@ -54,6 +50,7 @@
                 <hr>
 
                 <button type="submit" class="registerbtn" name="savebtn">Save</button>
+                <a href="o_addClassGrades.php" class="cancel-btn">Cancel</a>
 
             </form>
 
@@ -66,4 +63,4 @@
 
 </html>
 
-<?php } ?>
+<?php }} ?>
